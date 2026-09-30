@@ -11,12 +11,11 @@ jobs:
         with:
           distribution: temurin
           java-version: 17
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
-      - name: Make gradlew executable
-        run: chmod +x gradlew
       - name: Build Debug APK
-        run: ./gradlew assembleDebug
+        run: |
+          chmod +x gradlew
+          export ANDROID_HOME=$ANDROID_SDK_ROOT
+          ./gradlew assembleDebug
       - uses: actions/upload-artifact@v4
         with:
           name: DailyProgress-APK
